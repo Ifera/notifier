@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - 5000:5000
+    environment:
+      VITE_BACKEND_URL: http://localhost:3000/api
+    volumes:
+      - ./frontend:/app
+
+  backend:
+    build: ./backend
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      NOTIFIER_MONGODB_URI: mongodb://db/notifier
+    # volumes:
+    #   - ./backend:/app
+
+  db:
+    image: mongo:6-jammy
+    ports:
+      - 27017:27017
+    volumes:
+      - notifier:/data/db
+
+volumes:
+  notifier:
