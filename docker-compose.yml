@@ -9,8 +9,8 @@ services:
       - 5000:5000
     environment:
       VITE_BACKEND_URL: http://localhost:3000/api
-    volumes:
-      - ./frontend:/app
+    # volumes:
+    #   - ./frontend:/app
 
   backend:
     build: ./backend
